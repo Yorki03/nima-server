@@ -49,7 +49,7 @@ app.get('/cuerpo', (req,res)=>{
     });
 });
 app.get('/manga', (req,res)=>{
-    mysqlConnect.query('SELECT * FROM mangas', (err, rows, fields)=>{
+    mysqlConnect.query('SELECT * FROM manga', (err, rows, fields)=>{
         if(!err){
             res.json(rows);
         }else{
@@ -59,7 +59,7 @@ app.get('/manga', (req,res)=>{
 });
 
 app.get('/telas',(req,res)=>{
-    mysqlConnect.query('SELECT * FROM telas', (err, rows, fields)=>{
+    mysqlConnect.query('SELECT * FROM tela', (err, rows, fields)=>{
         if(!err){
             res.json(rows);
         }else{
@@ -69,7 +69,7 @@ app.get('/telas',(req,res)=>{
 });
 
 app.get('/botones',(req,res)=>{
-    mysqlConnect.query('SELECT * FROM botones', (err, rows, fields)=>{
+    mysqlConnect.query('SELECT * FROM boton', (err, rows, fields)=>{
         if(!err){
             res.json(rows);
         }else{
@@ -78,14 +78,25 @@ app.get('/botones',(req,res)=>{
     });
 });
 
-app.get('/producto/:id', (req, res)=>{
-    const id = req.params.id;
-    mysqlConnect.query('SELECT * FROM productos WHERE imagen = ' + 
-        mysqlConnect.escape(id), (err, rows, fields)=>{
-            if(err) console.log(err);
-            res.json(rows);
+app.get('/producto/:id_boton/:id_tela/:id_cuerpo/:id_cuello/:id_manga', (req, res) => {
+    const id_boton = req.params.id_boton;
+    const id_tela = req.params.id_tela;
+    const id_cuerpo = req.params.id_cuerpo;
+    const id_cuello = req.params.id_cuello;
+    const id_manga = req.params.id_manga;
+  
+    mysqlConnect.query('SELECT * FROM producto WHERE id_boton = ? AND id_tela = ? AND id_cuerpo = ? AND id_cuello = ? AND id_manga = ?', 
+      [id_boton, id_tela, id_cuerpo, id_cuello, id_manga], 
+      (err, rows, fields) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ error: 'Error al buscar el producto.' });
+        } else {
+          res.json(rows);
+        }
     });
 });
+  
 
 app.post('/registrarse',[
     check('name').notEmpty(),
