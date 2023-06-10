@@ -114,7 +114,7 @@ app.post('/login',[
     check('password').isLength({min: 8})
 ], async(req, res)=>{
    const {email, password} = req.body;
-   const query = 'SELECT id FROM usuarios WHERE email = ? AND password = ?'; 
+   const query = 'SELECT id FROM usuario WHERE email = ? AND password = ?'; 
    mysqlConnect.query(query, [email, password],(err, reslts)=>{
        if(err)throw err;
        else if(reslts.length === 0){
