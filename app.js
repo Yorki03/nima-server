@@ -1,11 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysqlConnect = require('./mysql');
-const {check, validationResult} =require('express-validator');
 const bcypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const path = require('path');
-const validarJWT = require('./middelwares/validar-jwt');
 require('dotenv').config();
 
 const app = express();  
