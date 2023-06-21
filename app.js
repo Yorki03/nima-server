@@ -96,10 +96,10 @@ app.get('/producto/:id_boton/:id_tela/:id_cuerpo/:id_cuello/:id_manga', (req, re
 
 app.post('/pedido', (req, res)=>{
     
-    const {nombre, email, telefono, direccion, producto} = req.body;
-    const sql = 'INSERT INTO pedido (nombre, email, telefono, direccion, producto) VALUE (?, ?, ?, ?, ?)';
+    const {nombre, email, telefono, direccion, id_producto} = req.body;
+    const sql = 'INSERT INTO pedido (nombre, email, telefono, direccion, id_producto) VALUE (?, ?, ?, ?, ?)';
     
-    mysqlConnect.query(sql, [nombre, email, telefono, direccion, producto], (err, rows)=>{
+    mysqlConnect.query(sql, [nombre, email, telefono, direccion, id_producto], (err, rows)=>{
         if (err) {
             console.log(err);
             res.status(500).json({ error: 'Error al buscar el producto.' });
