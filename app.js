@@ -15,17 +15,6 @@ app.use(cors({origin: "*"}));
 app.use(express.json());
 
 
-//Modelo de usuario
-const User = {
-    async create(name, email, password){
-        //encriptar el password
-        const hashedPassword = bcypt.hashSync(password, 10);
-        //Insertar el usuario en la base de datos
-        await mysqlConnect.query('INSERT INTO usuario (name, email,password) VALUES(?, ?, ?)', [name, email, hashedPassword]);
-    },
-};
-
-
 //Rutas
 app.get('/cuello', (req,res)=>{
     mysqlConnect.query('SELECT * FROM cuello', (err, rows, fields)=>{
@@ -84,6 +73,22 @@ app.get('/producto/:id_boton/:id_tela/:id_cuerpo/:id_cuello/:id_manga', (req, re
   
     mysqlConnect.query('SELECT * FROM producto WHERE id_boton = ? AND id_tela = ? AND id_cuerpo = ? AND id_cuello = ? AND id_manga = ?', 
       [id_boton, id_tela, id_cuerpo, id_cuello, id_manga], 
+      (err, rows, fields) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ error: 'Error al buscar el producto.' });
+        } else {
+          res.json(rows);
+        }
+    });
+});
+
+app.get('/botonYtela/:id_boton/:id_tela', (req, res) => {
+    const id_boton = req.params.id_boton;
+    const id_tela = req.params.id_tela;
+  
+    mysqlConnect.query('SELECT * FROM botontela WHERE id_boton = ? AND id_tela = ?', 
+      [id_boton, id_tela], 
       (err, rows, fields) => {
         if (err) {
           console.log(err);

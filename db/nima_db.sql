@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-06-2023 a las 06:53:34
+-- Tiempo de generación: 23-06-2023 a las 07:10:27
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,6 +39,27 @@ CREATE TABLE `boton` (
 
 INSERT INTO `boton` (`id_boton`, `imagen`, `descripcion`) VALUES
 (1, 'blanco 1', 'blanco 1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `botontela`
+--
+
+CREATE TABLE `botontela` (
+  `id_botontela` int(11) NOT NULL,
+  `imagen` varchar(250) NOT NULL,
+  `descripcion` varchar(250) NOT NULL,
+  `id_boton` int(11) NOT NULL,
+  `id_tela` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `botontela`
+--
+
+INSERT INTO `botontela` (`id_botontela`, `imagen`, `descripcion`, `id_boton`, `id_tela`) VALUES
+(1, 'Blanco_1', 'Crepe1', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -153,7 +174,31 @@ CREATE TABLE `tela` (
 --
 
 INSERT INTO `tela` (`id_tela`, `imagen`, `descripcion`) VALUES
-(1, 'crepe-arena', 'crepe-arena');
+(1, 'crepe-rojo', 'crepe-rojo'),
+(2, 'crepe-azulon', 'crepe-azulon'),
+(3, 'crepe-malva', 'crepe-malva'),
+(4, 'crepe-blanco', 'crepe-blanco'),
+(5, 'crepe-arena', 'crepe-arena'),
+(6, 'liberty-uvas', 'liberty-uvas'),
+(7, 'liberty-lineas-azul', 'liberty-lineas-azul'),
+(8, 'liberty-flores', 'liberty-flores'),
+(9, 'liberty-flores-2', 'liberty-flores-2'),
+(10, 'liberty-cuerdas', 'liberty-cuerdas'),
+(11, 'raso-negro', 'raso-negro'),
+(12, 'raso-azul-porcelana', 'raso-azul-porcelana'),
+(13, 'raso-malva', 'raso-malva'),
+(14, 'raso-rosa-palo', 'raso-rosa-palo'),
+(15, 'raso-blanco-hueso', 'raso-blanco-hueso'),
+(16, 'tencel-arcilla', 'tencel-arcilla'),
+(17, 'tencel-azulina', 'tencel-azulina'),
+(18, 'tencel-malva', 'tencel-malva'),
+(19, 'tencel-rojo-anaranjado', 'tencel-rojo-anaranjado'),
+(20, 'tencel-rosa-maquillaje', 'tencel-rosa-maquillaje'),
+(21, 'viscosa-roja', 'viscosa-roja'),
+(22, 'viscosa-malva', 'viscosa-malva'),
+(23, 'viscosa-mostaza', 'viscosa-mostaza'),
+(24, 'viscosa-arena', 'viscosa-arena'),
+(25, 'viscosa-blanca', 'viscosa-blanca');
 
 --
 -- Índices para tablas volcadas
@@ -164,6 +209,14 @@ INSERT INTO `tela` (`id_tela`, `imagen`, `descripcion`) VALUES
 --
 ALTER TABLE `boton`
   ADD PRIMARY KEY (`id_boton`);
+
+--
+-- Indices de la tabla `botontela`
+--
+ALTER TABLE `botontela`
+  ADD PRIMARY KEY (`id_botontela`),
+  ADD KEY `id_boton` (`id_boton`),
+  ADD KEY `id_tela` (`id_tela`);
 
 --
 -- Indices de la tabla `cuello`
@@ -218,6 +271,12 @@ ALTER TABLE `boton`
   MODIFY `id_boton` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `botontela`
+--
+ALTER TABLE `botontela`
+  MODIFY `id_botontela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `cuello`
 --
 ALTER TABLE `cuello`
@@ -251,11 +310,18 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `tela`
 --
 ALTER TABLE `tela`
-  MODIFY `id_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tela` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `botontela`
+--
+ALTER TABLE `botontela`
+  ADD CONSTRAINT `botontela_ibfk_1` FOREIGN KEY (`id_boton`) REFERENCES `boton` (`id_boton`),
+  ADD CONSTRAINT `botontela_ibfk_2` FOREIGN KEY (`id_tela`) REFERENCES `tela` (`id_tela`);
 
 --
 -- Filtros para la tabla `pedido`
