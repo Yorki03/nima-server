@@ -1,9 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysqlConnect = require('./mysql');
-const bcypt = require('bcryptjs');
 const path = require('path');
-require('dotenv').config();
+
 
 const app = express();  
 
@@ -114,8 +113,25 @@ app.post('/pedido', (req, res)=>{
     });
 });
 
+app.get('/precio/:id_tela', (req, res)=>{
+
+    const id_tela = req.params.id_tela;
+    const sql = 'SELECT precio FROM tela WHERE id_tela = ?';
+
+    mysqlConnect.query(sql, [id_tela], (err, rows)=>{
+        if (err) {
+            console.log(err);
+            res.status(500).json({error: 'Error al buscar el precio.'})
+        }
+        else{
+            res.json(rows);
+        }
+    });
+
+});
+
 //Controlador de rutas
-app.get('*',(req, res)=>{
+app.get('*', (req, res)=>{
     res.sendFile(path.resolve(__dirname, 'public/index.html'));
 });
 
