@@ -82,6 +82,24 @@ app.get('/producto/:id_boton/:id_tela/:id_cuerpo/:id_cuello/:id_manga', (req, re
     });
 });
 
+app.get('/producto-sin-boton/:id_tela/:id_cuerpo/:id_cuello/:id_manga', (req, res) => {
+    const id_tela = req.params.id_tela;
+    const id_cuerpo = req.params.id_cuerpo;
+    const id_cuello = req.params.id_cuello;
+    const id_manga = req.params.id_manga;
+  
+    mysqlConnect.query('SELECT * FROM producto WHERE id_tela = ? AND id_cuerpo = ? AND id_cuello = ? AND id_manga = ?', 
+      [id_tela, id_cuerpo, id_cuello, id_manga], 
+      (err, rows, fields) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ error: 'Error al buscar el producto.' });
+        } else {
+          res.json(rows);
+        }
+    });
+});
+
 app.get('/botonYtela/:id_boton/:id_tela', (req, res) => {
     const id_boton = req.params.id_boton;
     const id_tela = req.params.id_tela;
