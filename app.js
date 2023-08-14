@@ -119,9 +119,9 @@ app.get('/botonYtela/:id_boton/:id_tela', (req, res) => {
 app.post('/pedido', (req, res)=>{
     
     const {nombre, email, telefono, direccion, id_producto} = req.body;
-    const sql = 'INSERT INTO pedido(nombre, email, telefono, direccion, id_producto) VALUES (?,?,?,?,?)';
+    const sql = `INSERT INTO pedido(nombre, email, telefono, direccion, id_producto) VALUES ('${nombre}','${email}','${telefono}','${direccion}', '${id_producto}')`;
     
-    mysqlConnect.query(sql, [nombre, email, telefono, direccion, id_producto], (err, rows)=>{
+    mysqlConnect.query(sql, (err, rows)=>{
         if (err) {
             console.log(err);
             res.status(500).json({ error: 'Error al buscar el producto.' });
