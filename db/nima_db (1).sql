@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-07-2023 a las 11:58:56
+-- Tiempo de generación: 14-08-2023 a las 17:46:00
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -397,12 +397,11 @@ INSERT INTO `manga` (`id_manga`, `imagen`, `descripcion`) VALUES
 
 CREATE TABLE `pedido` (
   `id_pedido` int(11) NOT NULL,
-  `nombre` varchar(250) NOT NULL,
+  `nombre` text NOT NULL,
   `email` varchar(250) NOT NULL,
   `telefono` varchar(10) NOT NULL,
-  `direccion` varchar(250) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `precio_producto` float NOT NULL
+  `direccion` text NOT NULL,
+  `id_producto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
