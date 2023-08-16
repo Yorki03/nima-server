@@ -119,7 +119,7 @@ app.get('/botonYtela/:id_boton/:id_tela', (req, res) => {
 app.get('/precio/:id_tela', (req, res) =>{
     const id_tela = req.params.id_tela;
 
-    mysqlConnect.query('SELECT * FROM tela WHERE id_tela = ?', id_tela, (err, rows) =>{
+    mysqlConnect.query('SELECT * FROM tela WHERE id_tela = ?', [id_tela], (err, rows) =>{
         if (err) {
             console.log(err);
             res.status(500).json({error: 'Error al buscar precio'});
